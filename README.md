@@ -1,4 +1,4 @@
-# Ashen HC
+# Ashen Hight-Constrast
 
 [Ashen](https://github.com/ficd0/ashen.nvim) for Emacs, built around a pure
 black (`#000000`) foundational background. A standalone theme with no
@@ -75,15 +75,3 @@ Emacs-specific choices are kept small: inactive mode-line text is dimmed to
 and cursor-line surfaces. Org document roles use the nearest core text roles.
 ANSI colors follow Ashen's terminal palette, including its orange "green"
 and repeated bright colors (except bright black).
-
-## Validation
-
-```sh
-make check
-```
-
-## Credits
-
-Ashen by Daniel Fichtinger a.k.a. ficd. Ported to Emacs by Gustavo Arantes
-a.k.a. gnix. [Gruber Darker](https://github.com/rexim/gruber-darker-theme)
-served as an implementation reference. MIT license; see the theme header.
