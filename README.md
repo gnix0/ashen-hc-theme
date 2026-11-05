@@ -2,8 +2,6 @@
 
 ![Ashen High-Contrast](./screenshot.png)
 
-*Screenshot shows the earlier Neovim-based styling.*
-
 [Ashen](https://github.com/ficd0/ashen/tree/main/emacs) for Emacs, built around a pure
 black (`#000000`) foundational background. A standalone theme with no
 dependencies, for Emacs 27.1 or newer.
@@ -76,12 +74,3 @@ retain their mappings from
 [ashen.nvim](https://github.com/ficd0/ashen.nvim/blob/main/lua/ashen/variants/default/theme.lua)
 where the official Emacs port has no equivalent. In particular, additions
 stay gray, deletions ember red, and the ANSI "green" stays orange.
-
-Two small corrections preserve usability: function calls explicitly use normal
-weight so they do not inherit bold definitions, and selected completions and
-terminal menus use black text on the upstream light-gray selection surface.
-Org levels 4–8 continue the official orange heading pattern.
-
-## Validation
-
-Run `make check` to byte-compile the theme with warnings treated as errors.
