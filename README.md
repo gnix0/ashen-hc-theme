@@ -1,4 +1,4 @@
-# Ashen High-Constrast
+# Ashen High-Contrast
 
 ![Ashen High-Contrast](./screenshot.png)
 
