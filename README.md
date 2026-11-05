@@ -2,15 +2,18 @@
 
 ![Ashen High-Contrast](./screenshot.png)
 
-[Ashen](https://github.com/ficd0/ashen.nvim) for Emacs, built around a pure
+*Screenshot shows the earlier Neovim-based styling.*
+
+[Ashen](https://github.com/ficd0/ashen/tree/main/emacs) for Emacs, built around a pure
 black (`#000000`) foundational background. A standalone theme with no
 dependencies, for Emacs 27.1 or newer.
 
-Ashen's foreground colors, syntax roles, and highlight surfaces are preserved.
+The official Emacs port's syntax roles, styling, and highlight surfaces are preserved.
 Editing buffers, inactive windows, fringes, and source blocks sit on black;
 selections, search results, completion menus, and mode lines retain their
-original contrasting backgrounds. Comments stay upright and functions retain
-normal weight, matching Ashen's default style presets.
+original contrasting backgrounds. Comments are italic, function definitions
+are bold, and types and builtins use muted teal, following the official Emacs
+port. Function calls retain normal weight.
 
 ## Installation
 
@@ -34,46 +37,51 @@ For exact colors, use graphical Emacs or a terminal configured for true color.
 Disable other enabled themes before loading if you want to avoid their faces
 showing through in modes they cover.
 
-## Highlight mapping
+## Face mapping
 
-The port follows the roles in Ashen's
-[default highlight map](https://github.com/ficd0/ashen.nvim/blob/main/lua/ashen/variants/default/theme.lua)
-and [palette](https://github.com/ficd0/ashen.nvim/blob/main/lua/ashen/variants/default/colors.lua).
-The foundational `background` changes from `#121212` to `#000000`;
-the named grayscale and accent colors keep their upstream values.
+Faces shared with the
+[official Emacs port](https://github.com/ficd0/ashen/blob/main/emacs/ashen-theme.el)
+follow its Emacs-specific decisions. The foundational `background` changes
+from `#121212` to `#000000`; fringes, ordinary line numbers, menus, and source
+blocks also use black. The named grayscale and accent colors retain their
+upstream values.
 
-| Neovim role | Emacs equivalent | Appearance |
+| Role | Emacs faces | Appearance |
 | --- | --- | --- |
-| `Normal` | `default` | `#b4b4b4` on black |
-| `Comment` | `font-lock-comment-face` | `#737373`, upright |
-| `String` | `font-lock-string-face`, docstrings | `#DF6464` |
-| `Function`, `@function.builtin` | function names/calls, builtins | `#e5e5e5`, normal weight |
-| `@keyword`, `PreProc` | keywords, preprocessor | `#B14242` |
-| `Constant`, `Type` | constants, types | `#C4693D` |
-| `@variable`, `@variable.member` | variables, properties | `#b4b4b4`, `#d5d5d5` |
-| `@number` | number face, where the major mode supplies one | `#4A8B8B` |
-| `@operator`, `@punctuation.bracket` | operators, brackets | `#D87C4A`, `#737373` |
-| `Visual` | `region` | `#323232` background, preserves syntax foregrounds |
-| `CursorLine` | `hl-line` | `#212121` background |
-| `MatchParen` | `show-paren-match` | `#535353` background |
-| `CurSearch` | `isearch` | black on `#D87C4A`, bold |
-| `Search` | `lazy-highlight`, `match` | black on `#949494`, bold |
-| `StatusLine` | `mode-line`, `header-line` | `#949494` on `#323232` |
-| `TabLine`, `TabLineSel` | tab bar / tab line | gray inactive tabs, black selected tabs |
-| `Pmenu`, `PmenuSel` | Company / Corfu menus, selected completion | `#323232` / `#535353` backgrounds |
-| `NoicePopup` | `tooltip` | `#b4b4b4` on `#191919` |
-| `DiffAdd`, `DiffDelete`, `DiffChange` | diff faces, corresponding Magit faces | gray additions, ember deletions, orange changes |
-| `DiagnosticUnderline*` | Flymake / Flycheck | colored dotted underlines, waves where dots are unsupported |
-| `@text.title`, `@text.literal` | Org headings, inline code | light gray, kindling red |
+| Editing area | `default` | `#b4b4b4` on black |
+| Comments | `font-lock-comment-face` | `#535353`, italic |
+| Strings and docstrings | string and documentation faces | `#DF6464` |
+| Function definitions / calls | function name / call faces | `#b4b4b4`, bold definitions, normal calls |
+| Builtins, constants, types, numbers | corresponding font-lock faces | `#4A8B8B` |
+| Keywords | `font-lock-keyword-face` | `#B14242` |
+| Operators and properties | corresponding font-lock faces | `#C4693D` |
+| Preprocessor and escapes | corresponding font-lock faces | `#E49A44` |
+| Selection | `region` | `#323232` background, preserves syntax foregrounds |
+| Line / general highlighting | `hl-line`, `highlight` | `#191919` background |
+| Matching parentheses | `show-paren-match` | `#151515` on `#737373` |
+| Search | `isearch`, `lazy-highlight` | original inverse-video orange highlights |
+| Mode line | active / inactive mode lines | `#b4b4b4` on `#212121` |
+| Tooltip | `tooltip` | gray on `#212121`, gray border |
+| Dired | directories / symlinks | `#D87C4A` / `#B14242` |
+| Org | headings / inline code | orange headings, `#C4693D` code |
+| Eglot | inlay hints | `#737373`, small and italic |
 
-Emacs font-lock categories do not always separate the same tokens as Neovim's
-Tree-sitter captures. Types use the core `Type` role; numbers use `@number`
-where available. The theme defines faces without changing major-mode syntax
-rules. Modes that do not distinguish numbers, booleans, or builtin constants
-continue to use their existing font-lock categories.
+Built-in Tree-sitter major modes use the font-lock faces. Optional
+`emacs-tree-sitter` faces follow the official port's separate capture mappings;
+the theme does not load or require either Tree-sitter package. Major modes
+retain their own syntax rules and decide which faces apply.
 
-Emacs-specific choices are kept small: inactive mode-line text is dimmed to
-`#737373`; document links retain clickable underlines; Magit reuses the diff
-and cursor-line surfaces. Org document roles use the nearest core text roles.
-ANSI colors follow Ashen's terminal palette, including its orange "green"
-and repeated bright colors (except bright black).
+Additional tab-bar, Company, Corfu, diff, Magit, diagnostic, and ANSI faces
+retain their mappings from
+[ashen.nvim](https://github.com/ficd0/ashen.nvim/blob/main/lua/ashen/variants/default/theme.lua)
+where the official Emacs port has no equivalent. In particular, additions
+stay gray, deletions ember red, and the ANSI "green" stays orange.
+
+Two small corrections preserve usability: function calls explicitly use normal
+weight so they do not inherit bold definitions, and selected completions and
+terminal menus use black text on the upstream light-gray selection surface.
+Org levels 4–8 continue the official orange heading pattern.
+
+## Validation
+
+Run `make check` to byte-compile the theme with warnings treated as errors.
