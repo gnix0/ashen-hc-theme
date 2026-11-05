@@ -1,4 +1,6 @@
-# Ashen Hight-Constrast
+# Ashen High-Constrast
+
+![Ashen High-Contrast](./screenshot.png)
 
 [Ashen](https://github.com/ficd0/ashen.nvim) for Emacs, built around a pure
 black (`#000000`) foundational background. A standalone theme with no
