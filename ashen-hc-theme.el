@@ -1,3 +1,4 @@
+
 ;;; ashen-hc-theme.el --- Ashen color theme, high-contrast version -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2026 Gustavo Arantes a.k.a. gnix
@@ -41,10 +42,11 @@
 ;;; Code:
 
 (deftheme ashen-hc
-  "Ashen's warm, muted colors on a pure black background.")
+  "A restrained, red-accented Ashen palette on pure black.")
 
-;; Follow the official Emacs port's palette and faces.  Foundational
-;; surfaces use black; Neovim integrations supply additional face roles.
+;; Keep Ashen's palette and black UI, but give syntax a smaller set of roles:
+;; off-white for ordinary code, ember red for keywords and constants,
+;; and subtle warm accents for strings and preprocessor directives.
 (let ((background     "#000000")
       (red-flame      "#C53030")
       (red-glowing    "#DF6464")
@@ -67,11 +69,11 @@
       (g-10           "#1d1d1d")
       (g-11           "#191919")
       (g-12           "#151515")
-      (foreground     "#b4b4b4"))
+      (foreground     "#d5d5d5"))
   (custom-theme-set-faces
    'ashen-hc
 
-   ;; Black foundations, with the official Emacs cursor and line numbers.
+   ;; Pure black foundations and neutral editor chrome.
    `(default ((t (:foreground ,g-3 :background ,background
                   :weight normal :slant normal :underline nil))))
    `(cursor ((t (:background ,g-5))))
@@ -82,13 +84,12 @@
    `(line-number ((t (:foreground ,g-3 :background ,background))))
    `(line-number-current-line ((t (:foreground ,foreground :background ,g-8))))
    `(shadow ((t (:foreground ,g-7))))
-   `(minibuffer-prompt ((t (:foreground ,blue :weight bold))))
+   `(minibuffer-prompt ((t (:foreground ,red-ember :weight bold))))
    `(window-divider ((t (:foreground ,g-7 :background ,background))))
    `(window-divider-first-pixel ((t (:foreground ,background))))
    `(window-divider-last-pixel ((t (:foreground ,background))))
    `(vertical-border ((t (:foreground ,g-7 :background ,background))))
 
-   ;; Emacs selection and highlighting; Neovim's Folded for hideshow.
    `(region ((t (:background ,g-8))))
    `(secondary-selection ((t (:background ,g-11 :foreground ,g-3))))
    `(highlight ((t (:background ,g-11))))
@@ -97,14 +98,12 @@
    `(show-paren-mismatch ((t (:background ,red-flame :foreground ,g-12))))
    `(hs-ellipsis ((t (:foreground ,g-5 :background ,g-8 :box nil :height 1.0))))
 
-   ;; Preserve the official port's inverted search colors.
    `(isearch ((t (:foreground ,orange-blaze :background ,g-11 :inverse-video t))))
    `(lazy-highlight ((t (:foreground ,orange-smolder :background ,g-11 :inverse-video t))))
    `(match ((t (:inherit lazy-highlight))))
    `(isearch-fail ((t (:foreground ,g-1 :background ,red-flame))))
    `(query-replace ((t (:inherit isearch))))
 
-   ;; Official Emacs mode lines; Neovim TabLine for the tab bars.
    `(mode-line ((t (:foreground ,foreground :background ,g-9))))
    `(mode-line-inactive ((t (:foreground ,g-3 :background ,g-9))))
    `(mode-line-buffer-id ((t (:foreground ,g-3 :weight normal))))
@@ -119,37 +118,34 @@
    `(tab-line-tab-inactive ((t (:foreground ,g-3 :background ,g-8 :box nil))))
    `(tab-line-highlight ((t (:background ,g-7))))
 
-   ;; Official Emacs syntax roles.  Calls explicitly retain normal weight
-   ;; instead of inheriting the bold function-definition face.
-   `(font-lock-comment-face ((t (:foreground ,g-7 :slant italic))))
-   `(font-lock-comment-delimiter-face ((t (:foreground ,g-7 :slant italic))))
-   `(font-lock-doc-face ((t (:foreground ,red-glowing))))
-   `(font-lock-doc-markup-face ((t (:foreground ,orange-smolder))))
+   `(font-lock-comment-face ((t (:foreground ,g-6 :slant italic))))
+   `(font-lock-comment-delimiter-face ((t (:foreground ,g-6 :slant italic))))
+   `(font-lock-doc-face ((t (:foreground ,g-5))))
+   `(font-lock-doc-markup-face ((t (:foreground ,g-4))))
    `(font-lock-string-face ((t (:foreground ,red-glowing))))
-   `(font-lock-function-name-face ((t (:foreground ,foreground :weight bold))))
-   `(font-lock-function-call-face ((t (:foreground ,g-3 :weight normal))))
-   `(font-lock-builtin-face ((t (:foreground ,blue))))
+   `(font-lock-function-name-face ((t (:foreground ,g-1 :weight bold))))
+   `(font-lock-function-call-face ((t (:foreground ,g-2 :weight normal))))
+   `(font-lock-builtin-face ((t (:foreground ,g-2))))
    `(font-lock-keyword-face ((t (:foreground ,red-ember))))
-   `(font-lock-preprocessor-face ((t (:foreground ,orange-smolder))))
-   `(font-lock-constant-face ((t (:foreground ,blue))))
-   `(font-lock-type-face ((t (:foreground ,blue))))
+   `(font-lock-preprocessor-face ((t (:foreground ,orange-blaze))))
+   `(font-lock-constant-face ((t (:foreground ,red-ember))))
+   `(font-lock-type-face ((t (:foreground ,g-2))))
    `(font-lock-variable-name-face ((t (:foreground ,foreground))))
    `(font-lock-variable-use-face ((t (:foreground ,foreground))))
-   `(font-lock-property-name-face ((t (:foreground ,orange-blaze))))
-   `(font-lock-property-use-face ((t (:foreground ,orange-blaze))))
-   `(font-lock-number-face ((t (:foreground ,blue))))
-   `(font-lock-operator-face ((t (:foreground ,orange-blaze))))
-   `(font-lock-punctuation-face ((t (:foreground ,g-2))))
-   `(font-lock-misc-punctuation-face ((t (:foreground ,orange-golden))))
-   `(font-lock-bracket-face ((t (:foreground ,g-6))))
-   `(font-lock-delimiter-face ((t (:foreground ,orange-smolder))))
-   `(font-lock-escape-face ((t (:foreground ,orange-smolder))))
+   `(font-lock-property-name-face ((t (:foreground ,g-3))))
+   `(font-lock-property-use-face ((t (:foreground ,g-3))))
+   `(font-lock-number-face ((t (:foreground ,g-3))))
+   `(font-lock-operator-face ((t (:foreground ,g-3))))
+   `(font-lock-punctuation-face ((t (:foreground ,g-3))))
+   `(font-lock-misc-punctuation-face ((t (:foreground ,g-3))))
+   `(font-lock-bracket-face ((t (:foreground ,g-4))))
+   `(font-lock-delimiter-face ((t (:foreground ,g-3))))
+   `(font-lock-escape-face ((t (:foreground ,orange-blaze))))
    `(font-lock-regexp-grouping-backslash ((t (:foreground ,g-2 :weight normal))))
    `(font-lock-regexp-grouping-construct ((t (:foreground ,g-2 :weight normal))))
    `(font-lock-warning-face ((t (:foreground ,orange-golden :weight bold))))
-   `(font-lock-negation-char-face ((t (:foreground ,orange-blaze))))
+   `(font-lock-negation-char-face ((t (:foreground ,g-3))))
 
-   ;; Official Emacs status faces; Neovim DiagnosticUnderline* styles.
    `(error ((t (:foreground ,red-flame :weight bold))))
    `(warning ((t (:foreground ,orange-golden :weight bold))))
    `(success ((t (:foreground ,orange-blaze :weight bold))))
@@ -166,8 +162,8 @@
       (t (:underline (:style wave :color ,orange-golden)))))
    `(flymake-note
      ((((supports :underline (:style dots)))
-       (:underline (:style dots :color ,blue)))
-      (t (:underline (:style wave :color ,blue)))))
+       (:underline (:style dots :color ,g-5)))
+      (t (:underline (:style wave :color ,g-5)))))
    `(flycheck-error ((t (:inherit flymake-error))))
    `(flycheck-warning ((t (:inherit flymake-warning))))
    `(flycheck-info ((t (:inherit flymake-note))))
@@ -179,8 +175,6 @@
    `(eglot-type-hint-face ((t (:inherit eglot-inlay-hint-face))))
    `(eglot-parameter-hint-face ((t (:inherit eglot-inlay-hint-face))))
 
-   ;; Official completion faces, extended with Neovim's Pmenu/PmenuSel
-   ;; and PmenuSbar/PmenuThumb roles for Company and Corfu.
    `(tooltip ((t (:background ,g-9 :foreground ,foreground :box (:line-width 1 :color ,g-6)))))
    `(completions-common-part ((t (:foreground ,g-6))))
    `(completions-first-difference ((t (:foreground ,foreground :weight bold))))
@@ -204,7 +198,6 @@
    `(company-preview-common ((t (:foreground ,g-5 :background ,background))))
    `(company-preview-search ((t (:inherit match))))
 
-   ;; Official Dired and links; Neovim SpecialKey for visible glyphs.
    `(dired-directory ((t (:foreground ,orange-glow))))
    `(dired-symlink ((t (:foreground ,red-ember))))
    `(dired-marked ((t (:foreground ,red-ember :background ,g-8))))
@@ -220,16 +213,13 @@
    `(tty-menu-enabled-face ((t (:foreground ,foreground :background ,background :weight normal))))
    `(tty-menu-disabled-face ((t (:foreground ,g-7 :background ,background))))
    `(scroll-bar ((t (:foreground ,g-7 :background ,g-10))))
-   ;; Upstream's selected surfaces use light gray.  Dark text keeps them
-   ;; readable; inheriting the normal gray text gives too little contrast.
+
    `(tty-menu-selected-face ((t (:foreground ,background :background ,g-4 :inverse-video nil))))
    `(escape-glyph ((t (:foreground ,g-6))))
    `(homoglyph ((t (:foreground ,g-6))))
    `(nobreak-space ((t (:foreground ,g-6 :background ,background :underline nil))))
    `(trailing-whitespace ((t (:background ,red-flame))))
 
-   ;; DiffAdd, DiffDelete, DiffChange, DiffText.  Added lines are gray,
-   ;; not green: this follows Ashen's deliberate, restrained diff palette.
    `(diff-added ((t (:foreground ,g-4 :background ,g-8 :extend t))))
    `(diff-removed ((t (:foreground ,red-ember :background ,g-8 :extend t))))
    `(diff-changed ((t (:foreground ,orange-smolder :background ,g-6 :extend t))))
@@ -280,29 +270,28 @@
    `(org-hide ((t (:foreground ,background))))
    `(org-ellipsis ((t (:foreground ,g-5 :background ,g-8 :underline nil))))
 
-   ;; Optional emacs-tree-sitter faces from the official Emacs port.
    ;; Built-in *-ts-mode modes use the font-lock faces above.
    `(tree-sitter-hl-face:attribute ((t (:foreground ,g-4 :slant italic))))
-   `(tree-sitter-hl-face:comment ((t (:foreground ,g-7 :slant italic))))
-   `(tree-sitter-hl-face:comment.block.documentation ((t (:foreground ,g-7 :slant italic))))
-   `(tree-sitter-hl-face:comment.unused ((t (:foreground ,g-7 :slant italic :strike-through t))))
-   `(tree-sitter-hl-face:conceal ((t (:foreground ,red-ember :slant italic))))
+   `(tree-sitter-hl-face:comment ((t (:foreground ,g-6 :slant italic))))
+   `(tree-sitter-hl-face:comment.block.documentation ((t (:foreground ,g-6 :slant italic))))
+   `(tree-sitter-hl-face:comment.unused ((t (:foreground ,g-6 :slant italic :strike-through t))))
+   `(tree-sitter-hl-face:conceal ((t (:foreground ,g-5 :slant italic))))
    `(tree-sitter-hl-face:constructor ((t (:foreground ,g-1))))
-   `(tree-sitter-hl-face:constant ((t (:foreground ,orange-blaze))))
-   `(tree-sitter-hl-face:constant.builtin ((t (:foreground ,blue))))
-   `(tree-sitter-hl-face:constant.builtin.boolean ((t (:foreground ,blue))))
+   `(tree-sitter-hl-face:constant ((t (:foreground ,red-ember))))
+   `(tree-sitter-hl-face:constant.builtin ((t (:foreground ,red-ember))))
+   `(tree-sitter-hl-face:constant.builtin.boolean ((t (:foreground ,red-ember))))
    `(tree-sitter-hl-face:constant.character ((t (:foreground ,red-glowing :weight bold))))
-   `(tree-sitter-hl-face:constant.character.escape ((t (:foreground ,g-2))))
-   `(tree-sitter-hl-face:constant.macro ((t (:foreground ,blue))))
-   `(tree-sitter-hl-face:constant.numeric ((t (:foreground ,blue))))
+   `(tree-sitter-hl-face:constant.character.escape ((t (:foreground ,orange-blaze))))
+   `(tree-sitter-hl-face:constant.macro ((t (:foreground ,red-ember))))
+   `(tree-sitter-hl-face:constant.numeric ((t (:foreground ,g-3))))
    `(tree-sitter-hl-face:diff.delta ((t (:foreground ,brown))))
    `(tree-sitter-hl-face:diff.minus ((t (:foreground ,red-ember))))
    `(tree-sitter-hl-face:diff.plus ((t (:foreground ,g-6))))
    `(tree-sitter-hl-face:error ((t (:foreground ,red-flame))))
-   `(tree-sitter-hl-face:function ((t (:foreground ,g-3 :weight bold))))
-   `(tree-sitter-hl-face:function.builtin ((t (:foreground ,g-3 :weight bold :slant italic))))
-   `(tree-sitter-hl-face:function.call ((t (:foreground ,g-3 :weight normal))))
-   `(tree-sitter-hl-face:function.macro ((t (:foreground ,red-ember))))
+   `(tree-sitter-hl-face:function ((t (:foreground ,g-1 :weight bold))))
+   `(tree-sitter-hl-face:function.builtin ((t (:foreground ,g-1 :weight bold :slant italic))))
+   `(tree-sitter-hl-face:function.call ((t (:foreground ,g-2 :weight normal))))
+   `(tree-sitter-hl-face:function.macro ((t (:foreground ,g-2))))
    `(tree-sitter-hl-face:hint ((t (:foreground ,g-4))))
    `(tree-sitter-hl-face:info ((t (:foreground ,g-2))))
    `(tree-sitter-hl-face:keyword ((t (:foreground ,red-ember))))
@@ -311,7 +300,7 @@
    `(tree-sitter-hl-face:keyword.control.directive ((t (:foreground ,red-ember :slant italic))))
    `(tree-sitter-hl-face:keyword.control.import ((t (:foreground ,red-ember))))
    `(tree-sitter-hl-face:keyword.directive ((t (:foreground ,red-ember :slant italic))))
-   `(tree-sitter-hl-face:keyword.operator ((t (:foreground ,orange-blaze))))
+   `(tree-sitter-hl-face:keyword.operator ((t (:foreground ,g-3))))
    `(tree-sitter-hl-face:keyword.storage ((t (:foreground ,red-ember))))
    `(tree-sitter-hl-face:keyword.storage.modifier ((t (:foreground ,red-ember :slant italic))))
    `(tree-sitter-hl-face:keyword.storage.modifier.mut ((t (:foreground ,red-ember :slant italic))))
@@ -333,40 +322,38 @@
    `(tree-sitter-hl-face:markup.raw.block ((t (:foreground ,g-2))))
    `(tree-sitter-hl-face:markup.raw.inline ((t (:foreground ,g-2 :background ,g-10))))
    `(tree-sitter-hl-face:markup.strikethrough ((t (:strike-through t))))
-   `(tree-sitter-hl-face:method.call ((t (:foreground ,g-3 :weight normal))))
-   `(tree-sitter-hl-face:namespace ((t (:foreground ,orange-glow :weight bold))))
-   `(tree-sitter-hl-face:number ((t (:foreground ,blue))))
-   `(tree-sitter-hl-face:operator ((t (:foreground ,orange-blaze))))
-   `(tree-sitter-hl-face:property ((t (:foreground ,g-2))))
-   `(tree-sitter-hl-face:property.definition ((t (:foreground ,orange-glow :weight bold))))
-   `(tree-sitter-hl-face:punctuation ((t (:foreground ,g-2))))
-   `(tree-sitter-hl-face:punctuation.bracket ((t (:foreground ,g-6))))
-   `(tree-sitter-hl-face:punctuation.delimiter ((t (:foreground ,orange-smolder))))
-   `(tree-sitter-hl-face:punctuation.special ((t (:foreground ,orange-golden))))
-   `(tree-sitter-hl-face:special ((t (:foreground ,orange-smolder))))
+   `(tree-sitter-hl-face:method.call ((t (:foreground ,g-2 :weight normal))))
+   `(tree-sitter-hl-face:namespace ((t (:foreground ,g-2 :weight bold))))
+   `(tree-sitter-hl-face:number ((t (:foreground ,g-3))))
+   `(tree-sitter-hl-face:operator ((t (:foreground ,g-3))))
+   `(tree-sitter-hl-face:property ((t (:foreground ,g-3))))
+   `(tree-sitter-hl-face:property.definition ((t (:foreground ,g-2 :weight bold))))
+   `(tree-sitter-hl-face:punctuation ((t (:foreground ,g-3))))
+   `(tree-sitter-hl-face:punctuation.bracket ((t (:foreground ,g-4))))
+   `(tree-sitter-hl-face:punctuation.delimiter ((t (:foreground ,g-3))))
+   `(tree-sitter-hl-face:punctuation.special ((t (:foreground ,g-3))))
+   `(tree-sitter-hl-face:special ((t (:foreground ,g-3))))
    `(tree-sitter-hl-face:string ((t (:foreground ,red-glowing))))
-   `(tree-sitter-hl-face:string.escape ((t (:foreground ,g-2))))
-   `(tree-sitter-hl-face:string.regexp ((t (:foreground ,orange-glow))))
+   `(tree-sitter-hl-face:string.escape ((t (:foreground ,orange-blaze))))
+   `(tree-sitter-hl-face:string.regexp ((t (:foreground ,red-glowing))))
    `(tree-sitter-hl-face:string.special ((t (:foreground ,g-2))))
    `(tree-sitter-hl-face:string.special.path ((t (:foreground ,red-glowing :weight bold))))
-   `(tree-sitter-hl-face:string.special.symbol ((t (:foreground ,orange-smolder))))
+   `(tree-sitter-hl-face:string.special.symbol ((t (:foreground ,g-2))))
    `(tree-sitter-hl-face:string.special.url ((t (:foreground ,red-glowing :weight bold))))
-   `(tree-sitter-hl-face:string.symbol ((t (:foreground ,orange-glow))))
-   `(tree-sitter-hl-face:tag ((t (:foreground ,orange-glow :slant italic))))
-   `(tree-sitter-hl-face:type ((t (:foreground ,blue))))
-   `(tree-sitter-hl-face:type.argument ((t (:foreground ,orange-glow))))
-   `(tree-sitter-hl-face:type.builtin ((t (:foreground ,blue))))
-   `(tree-sitter-hl-face:type.enum.variant ((t (:foreground ,orange-blaze))))
-   `(tree-sitter-hl-face:type.enum.variant.builtin ((t (:foreground ,orange-blaze))))
-   `(tree-sitter-hl-face:type.parameter ((t (:foreground ,orange-glow))))
-   `(tree-sitter-hl-face:variable ((t (:foreground ,g-3))))
-   `(tree-sitter-hl-face:variable.builtin ((t (:foreground ,blue))))
-   `(tree-sitter-hl-face:variable.other.member ((t (:foreground ,g-2))))
-   `(tree-sitter-hl-face:variable.parameter ((t (:foreground ,g-2 :slant italic))))
+   `(tree-sitter-hl-face:string.symbol ((t (:foreground ,g-2))))
+   `(tree-sitter-hl-face:tag ((t (:foreground ,g-2 :slant italic))))
+   `(tree-sitter-hl-face:type ((t (:foreground ,g-2))))
+   `(tree-sitter-hl-face:type.argument ((t (:foreground ,g-2))))
+   `(tree-sitter-hl-face:type.builtin ((t (:foreground ,g-2))))
+   `(tree-sitter-hl-face:type.enum.variant ((t (:foreground ,red-ember))))
+   `(tree-sitter-hl-face:type.enum.variant.builtin ((t (:foreground ,red-ember))))
+   `(tree-sitter-hl-face:type.parameter ((t (:foreground ,g-2))))
+   `(tree-sitter-hl-face:variable ((t (:foreground ,g-2))))
+   `(tree-sitter-hl-face:variable.builtin ((t (:foreground ,g-2))))
+   `(tree-sitter-hl-face:variable.other.member ((t (:foreground ,g-3))))
+   `(tree-sitter-hl-face:variable.parameter ((t (:foreground ,g-3 :slant italic))))
    `(tree-sitter-hl-face:warning ((t (:foreground ,orange-golden))))
 
-   ;; Ashen's ANSI palette intentionally maps green to orange.  Terminal
-   ;; faces use matching foreground/background colors for ANSI escapes.
    `(term ((t (:foreground ,g-3 :background ,background))))
    `(term-color-black ((t (:foreground ,background :background ,background))))
    `(term-color-red ((t (:foreground ,red-ember :background ,red-ember))))
